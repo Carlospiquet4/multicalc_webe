@@ -113,7 +113,7 @@
             background-color: #00b463;
             color: #000000;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
@@ -127,6 +127,29 @@
             transform: scale(0.98);            
         }
 
+        .btn-nova-turma {
+            width: 30%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #fb1d1d;
+            color: #000000;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .btn-nova-turma:hover {
+            background-color: #eb0404;
+        }
+
         .form-container button.general-button {
             width: 60%;
             padding: 10px;
@@ -134,7 +157,7 @@
             background-color: #564c6e;
             color: #ffffff;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
@@ -153,7 +176,7 @@
             background-color: #ff9335;
             color: #000000;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
@@ -279,6 +302,7 @@
         <button type="button" class="aluno-button" onclick="exportAllData()">Exportar Todos os Dados para Excel</button>
         
         <button type="button" id="generatePDF" class="general-button">Gerar PDF</button>
+        <button type="button" class="btn-nova-turma" onclick="novaTurma()">Nova Turma</button>
         <button type="button" class="faltas-button" onclick="window.location.href='faltas.html'">Calculadora de Porcentagem de Faltas</button>
     </div>
 
@@ -388,6 +412,10 @@
             const result = document.getElementById('result');
             result.style.display = 'block';
             return average; // Retorna a média calculada
+        }
+
+        function novaTurma() {
+            location.reload();
         }
 
         function addStudent() {

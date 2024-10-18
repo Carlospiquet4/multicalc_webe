@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Porcentagem de Faltas</title>
     <style>
+        /* Manter o estilo existente */
         body {
             font-family: Arial, sans-serif;
             background-color: #fefeff;
@@ -62,34 +63,29 @@
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            /* Espaçamento entre os campos */
-            width: calc(55% - 20px)
+            width: calc(55% - 20px);
         }
 
         #admissao {
             width: calc(20% - 12px);
-            /* Reduzido para 50% da largura */
         }
 
         #eventos {
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            /* Espaçamento entre os campos */
-            width: calc(15% - 20px)
+            width: calc(15% - 20px);
         }
 
         .periodo-group {
             display: flex;
             justify-content: space-between;
             gap: 20px;
-            /* Espaçamento entre os campos */
-            width: calc(55% - 20px)
+            width: calc(55% - 20px);
         }
 
         .periodo-group div {
             flex: 1;
-            /* Faz com que os campos ocupem igualmente o espaço disponível */
         }
 
         button {
@@ -97,15 +93,13 @@
             padding: 10px;
             margin-top: 13px;
             background-color: #564c6e;
-            /* Cor para lembrar botões de calculadora */
             color: #ffffff;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
                 inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            /* Sombras internas e externas */
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
@@ -114,19 +108,17 @@
         }
 
         .button-secondary {
-            width: 60%;
+            width: 35%;
             padding: 10px;
             margin-top: 13px;
             background-color: #fc9b40;
-            /* Cor para lembrar botões de calculadora */
             color: #ffffff;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: 16px;
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
                 inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            /* Sombras internas e externas */
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
@@ -174,6 +166,68 @@
             margin-top: 20px;
             background-color: white;
         }
+
+        .btn-adicionar-aluno {
+            width: 60%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #00b463;
+            color: #000000;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+        }
+
+        .btn-adicionar-aluno:hover {
+            background-color: #feffff;
+        }
+
+        .btn-exportar-excel {
+            width: 60%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #00b463;
+            color: #000000;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+
+        }
+
+        .btn-exportar-excel:hover {
+            background-color: #ffffff;
+        }
+
+        .btn-nova-turma {
+            width: 30%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #fb1d1d;
+            color: #000000;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .btn-nova-turma:hover {
+            background-color: #eb0404;
+        }
     </style>
 </head>
 
@@ -213,23 +267,28 @@
             </div>
             <div class="form-group">
                 <label for="eventos">Número de Eventos:</label>
-                <input type="number" id="eventos" min="1" max="12" required onchange="gerarCamposEventos()">
+                <button type="button" class="btn-calcular" onclick="calcularFaltas()">Calcular</button>
+                <button type="button" class="btn-gerar-pdf" onclick="gerarPDF()">Gerar PDF</button>
+                <button type="button" class="btn-adicionar-aluno" onclick="addStudent()">Adicionar Aluno</button>
+                <button type="button" class="btn-exportar-excel" onclick="exportAllData()">Exportar para Excel</button>
+                <button type="button" class="btn-nova-turma" onclick="novaTurma()">Nova Turma</button>
+                <button class="button-secondary" type="button" onclick="window.location.href='desempenho.html'">Análise
+                    Acadêmica Integral</button><input type="number" id="eventos" min="1" max="12" required
+                    onchange="gerarCamposEventos()">
             </div>
-            <div id="eventosContainer"></div>
-            <button type="button" onclick="calcularFaltas()">Calcular</button>
-            <button type="button" onclick="gerarPDF()">Gerar PDF</button>
-            <button class="button-secondary" type="button" onclick="window.location.href='desempenho.html'">Análise
-                Acadêmica Integral</button>
+
+            Acadêmica Integral</button>
         </form>
         <div id="resultado"></div>
         <canvas id="graficoDesempenho" width="400" height="200"></canvas>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script>
+        let studentsData = []; // Array para armazenar os dados dos alunos
         let chart; // Variável global para armazenar o gráfico
 
         function gerarCamposEventos() {
@@ -246,9 +305,9 @@
                 const eventoGroup = document.createElement('div');
                 eventoGroup.className = 'evento-group';
                 eventoGroup.innerHTML = `
-                    <input type="date" placeholder="Data Evento" class="dataEvento">
-                    <input type="text" placeholder="Nome do Evento" class="nomeMateria" maxlength="80">
-                    <input type="text" placeholder="P/F/J" class="statusEvento">
+                    <input type="date" placeholder="Data Evento" class="dataEvento" required>
+                    <input type="text" placeholder="Nome do Evento" class="nomeMateria" maxlength="80" required>
+                    <input type="text" placeholder="P/F/J" class="statusEvento" required>
                     <textarea placeholder="Observação Justificativa" class="obsJustificativa" maxlength="40" style="display: none;"></textarea>
                 `;
                 container.appendChild(eventoGroup);
@@ -265,6 +324,102 @@
                     }
                 });
             });
+        }
+
+        function addStudent() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const turma = document.getElementById('turma').value;
+            const matricula = document.getElementById('matricula').value;
+            const admissao = document.getElementById('admissao').value;
+            const periodoInicio = document.getElementById('periodoInicio').value;
+            const periodoFim = document.getElementById('periodoFim').value;
+
+            const eventos = [];
+            const dataEventos = document.querySelectorAll('.dataEvento');
+            const nomeMaterias = document.querySelectorAll('.nomeMateria');
+            const statusEventos = document.querySelectorAll('.statusEvento');
+
+            dataEventos.forEach((input, index) => {
+                const dataEvento = input.value;
+                const nomeMateria = nomeMaterias[index].value;
+                const status = statusEventos[index].value;
+                const obsJustificativa = document.querySelectorAll('.obsJustificativa')[index].value;
+
+                eventos.push({ data: dataEvento, nomeMateria, status, obsJustificativa });
+            });
+
+            const student = {
+                nome,
+                email,
+                turma,
+                matricula,
+                admissao,
+                periodoInicio,
+                periodoFim,
+                eventos
+            };
+
+            studentsData.push(student); // Adiciona o aluno ao array
+            alert('Aluno adicionado com sucesso!');
+
+            // Limpa os campos de entrada, mas mantém os eventos
+            document.getElementById('nome').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('turma').value = '';
+            document.getElementById('matricula').value = '';
+            document.getElementById('admissao').value = '';
+            document.getElementById('periodoInicio').value = '';
+            document.getElementById('periodoFim').value = '';
+
+            // Zera os campos de presença, falta e justificativa
+            statusEventos.forEach(input => {
+                input.value = '';  // Limpa o status (P/F/J)
+            });
+
+            const obsInputs = document.querySelectorAll('.obsJustificativa');
+            obsInputs.forEach(input => {
+                input.value = '';  // Limpa a observação justificativa
+                input.style.display = 'none'; // Oculta o campo de observação
+            });
+        }
+
+        function exportAllData() {
+            const ws = XLSX.utils.json_to_sheet(studentsData.map(student => {
+                let presencas = 0, faltas = 0, justificativas = 0;
+
+                student.eventos.forEach(event => {
+                    const status = event.status.toUpperCase();
+                    if (status === 'P') presencas++;
+                    else if (status === 'F') faltas++;
+                    else if (status === 'J') justificativas++;
+                });
+
+                const totalEventos = student.eventos.length;
+                const percentFaltas = Math.round((faltas / totalEventos) * 100); // Arredondando para o inteiro mais próximo
+
+                return {
+                    Nome: student.nome,
+                    Email: student.email,
+                    Turma: student.turma,
+                    Matrícula: student.matricula,
+                    Admissão: student.admissao,
+                    Período_Inicial: student.periodoInicio,
+                    Período_Final: student.periodoFim,
+                    Total_de_Presenças: presencas,
+                    Total_de_Faltas: faltas,
+                    Total_de_Justificativas: justificativas,
+                    Porcentagem_de_Faltas: percentFaltas + '%' // Concatenando o símbolo '%'
+                };
+            }));
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Dados dos Alunos');
+            XLSX.writeFile(wb, 'dados_alunos.xlsx');
+        }
+
+        function novaTurma() {
+            location.reload();
         }
 
         function calcularFaltas() {

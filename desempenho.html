@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Acadêmica Integral</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fefeff;
+            color: #000000;
+            background-image: url(04.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .form-container {
+            max-width: 620px;
+            font-size: 13px;
+            color: #fffdfd;
+            margin: 0 auto;
+            background-color: rgba(42, 43, 41, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0px 20px rgba(255, 255, 255, 0.5);
+            flex: 1;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .input-container input {
+            width: calc(29% - 10px);
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #b6b4b4;
+            color: #000000;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .button3 {
+            width: 20%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            gap: 2%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #fc4040;
+            /* Cor para lembrar botões de calculadora */
+            color: #ffffff;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            /* Sombras internas e externas */
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-right: auto;
+        }
+
+        .button2 {
+            width: 28%;
+            gap: 2%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #fc9b40;
+            /* Cor para lembrar botões de calculadora */
+            color: #ffffff;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            /* Sombras internas e externas */
+            transition: background-color 0.3s ease, transform 0.1s ease;
+
+        }
+
+
+        .button {
+            width: 28%;
+            gap: 2%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #fc9b40;
+            /* Cor para lembrar botões de calculadora */
+            color: #ffffff;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            /* Sombras internas e externas */
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-right: auto;
+        }
+
+        .button:hover {
+            background-color: #f7a766;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            color: #fffcfc;
+        }
+
+        .options input {
+            margin-right: 5px;
+        }
+
+        .chartContainer {
+            margin-top: 10px;
+            display: none;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: 300px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #result {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #007BFF;
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Análise Acadêmica Integral</h1>
+
+        <!-- Campos de data -->
+        <div class="input-container date-fields">
+            <input type="date" id="dataInicio" required>
+            <input type="date" id="dataFim" required>
+        </div>
+
+        <div class="button2" onclick="addTurmaFields()">Adicionar Turma</div>
+
+
+        <div id="turmasContainer" class="turmas-container"></div>
+
+        <div class="options">
+            <label>
+                <input type="checkbox" id="incluirGeneroProfessores"> Gráfico de Gênero dos Professores
+            </label>
+            <label>
+                <input type="checkbox" id="incluirGeneroAlunos"> Gráfico de Gênero dos Alunos
+            </label>
+            <label>
+                <input type="checkbox" id="incluirRaca"> Gráfico de Raça dos Alunos
+            </label>
+        </div>
+
+        <div class="button-group">
+
+            <div class="button" onclick="calculatePerformance()">Calcular Desempenho</div>
+            <div class="button3" onclick="generatePDF()">Gerar PDF</div>
+        </div>
+
+        <div id="result">
+            <p id="performance"></p>
+        </div>
+
+        <div id="chartContainer" class="chartContainer">
+            <canvas id="overallChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function addTurmaFields() {
+            const container = document.getElementById('turmasContainer');
+            container.innerHTML = ''; // Limpar campos existentes
+
+            const turmaDiv = document.createElement('div');
+            turmaDiv.classList.add('turma-fields');
+
+            turmaDiv.innerHTML = `
+                <div class="input-container">
+                    <input type="text" class="nomeTurma" placeholder="Nome da Turma" required>
+                </div>
+                <div class="input-container">
+                    <input type="number" class="totalEventos" placeholder="Total de Eventos" required>
+                    <input type="number" class="totalPresencas" placeholder="Total de Presenças" required>
+                    <input type="number" class="totalJustificativas" placeholder="Total de Justificativas" required>
+                    <input type="number" class="totalFaltas" placeholder="Total de Faltas" required>
+                </div>
+                <div class="input-container professor-fields" style="display:none;">
+                    <input type="number" class="professoresHomens" placeholder="Professores Homens">
+                    <input type="number" class="professorasMulheres" placeholder="Professoras Mulheres">
+                </div>
+                <div class="input-container aluno-fields" style="display:none;">
+                    <input type="number" class="alunosHomens" placeholder="Alunos Homens">
+                    <input type="number" class="alunasMulheres" placeholder="Alunas Mulheres">
+                    <input type="number" class="alunosLGBTQIA" placeholder="Alunos LGBTQIA+">
+                </div>
+                <div class="input-container raca-fields" style="display:none;">
+                    <input type="number" class="alunosNegros" placeholder="Alunos Negros">
+                    <input type="number" class="alunosPardos" placeholder="Alunos Pardos">
+                    <input type="number" class="alunosBrancos" placeholder="Alunos Brancos">
+                    <input type="number" class="alunosAmarelos" placeholder="Alunos Amarelos">
+                    <input type="number" class="alunosIndigenas" placeholder="Alunos Indígenas">
+                </div>
+            `;
+
+            container.appendChild(turmaDiv);
+
+            document.getElementById('incluirGeneroProfessores').addEventListener('change', toggleProfessorFields);
+            document.getElementById('incluirGeneroAlunos').addEventListener('change', toggleAlunoFields);
+            document.getElementById('incluirRaca').addEventListener('change', toggleRacaFields);
+        }
+
+        function toggleProfessorFields() {
+            const display = document.getElementById('incluirGeneroProfessores').checked ? 'flex' : 'none';
+            document.querySelector('.professor-fields').style.display = display;
+        }
+
+        function toggleAlunoFields() {
+            const display = document.getElementById('incluirGeneroAlunos').checked ? 'flex' : 'none';
+            document.querySelector('.aluno-fields').style.display = display;
+        }
+
+        function toggleRacaFields() {
+            const display = document.getElementById('incluirRaca').checked ? 'flex' : 'none';
+            document.querySelector('.raca-fields').style.display = display;
+        }
+
+        function calculatePerformance() {
+            const turma = document.querySelector('.turma-fields');
+            const chartContainer = document.getElementById('chartContainer');
+            chartContainer.style.display = 'block';
+
+            const nomeTurma = turma.querySelector('.nomeTurma').value;
+            const totalEventos = parseInt(turma.querySelector('.totalEventos').value);
+            const totalPresencas = parseInt(turma.querySelector('.totalPresencas').value);
+            const totalJustificativas = parseInt(turma.querySelector('.totalJustificativas').value);
+            const totalFaltas = parseInt(turma.querySelector('.totalFaltas').value);
+
+            const totalProfessores = (parseInt(turma.querySelector('.professoresHomens').value || 0) +
+                parseInt(turma.querySelector('.professorasMulheres').value || 0));
+
+            const totalAlunos = (parseInt(turma.querySelector('.alunosHomens').value || 0) +
+                parseInt(turma.querySelector('.alunasMulheres').value || 0) +
+                parseInt(turma.querySelector('.alunosLGBTQIA').value || 0));
+
+            const totalRacas = (parseInt(turma.querySelector('.alunosNegros').value || 0) +
+                parseInt(turma.querySelector('.alunosPardos').value || 0) +
+                parseInt(turma.querySelector('.alunosBrancos').value || 0) +
+                parseInt(turma.querySelector('.alunosAmarelos').value || 0) +
+                parseInt(turma.querySelector('.alunosIndigenas').value || 0));
+
+            const dados = [
+                (totalPresencas / totalEventos) * 100,
+                (totalJustificativas / totalEventos) * 100,
+                (totalFaltas / totalEventos) * 100
+            ];
+
+            const labels = ['Presenças', 'Justificadas', 'Faltas'];
+            const backgroundColors = ['#4CAF50', '#007BFF', '#F44336']; // Verde, Azul, Vermelho
+
+            if (document.getElementById('incluirGeneroProfessores').checked && totalProfessores > 0) {
+                const professoresHomens = parseInt(turma.querySelector('.professoresHomens').value || 0);
+                const professorasMulheres = parseInt(turma.querySelector('.professorasMulheres').value || 0);
+                dados.push((professoresHomens / totalProfessores) * 100, (professorasMulheres / totalProfessores) * 100);
+                labels.push('Professores Homens', 'Professoras Mulheres');
+                backgroundColors.push('#36A2EB', '#FF6384');
+            }
+
+            if (document.getElementById('incluirGeneroAlunos').checked && totalAlunos > 0) {
+                const alunosHomens = parseInt(turma.querySelector('.alunosHomens').value || 0);
+                const alunasMulheres = parseInt(turma.querySelector('.alunasMulheres').value || 0);
+                const alunosLGBTQIA = parseInt(turma.querySelector('.alunosLGBTQIA').value || 0);
+                dados.push((alunosHomens / totalAlunos) * 100, (alunasMulheres / totalAlunos) * 100, (alunosLGBTQIA / totalAlunos) * 100);
+                labels.push('Alunos Homens', 'Alunas Mulheres', 'Alunos LGBTQIA+');
+                backgroundColors.push('#36A2EB', '#FF6384', '#AB47BC');
+            }
+
+            if (document.getElementById('incluirRaca').checked && totalRacas > 0) {
+                const alunosNegros = parseInt(turma.querySelector('.alunosNegros').value || 0);
+                const alunosPardos = parseInt(turma.querySelector('.alunosPardos').value || 0);
+                const alunosBrancos = parseInt(turma.querySelector('.alunosBrancos').value || 0);
+                const alunosAmarelos = parseInt(turma.querySelector('.alunosAmarelos').value || 0);
+                const alunosIndigenas = parseInt(turma.querySelector('.alunosIndigenas').value || 0);
+                dados.push(
+                    (alunosNegros / totalRacas) * 100,
+                    (alunosPardos / totalRacas) * 100,
+                    (alunosBrancos / totalRacas) * 100,
+                    (alunosAmarelos / totalRacas) * 100,
+                    (alunosIndigenas / totalRacas) * 100
+                );
+                labels.push('Alunos Negros', 'Alunos Pardos', 'Alunos Brancos', 'Alunos Amarelos', 'Alunos Indígenas');
+                backgroundColors.push('#FFCE56', '#36A2EB', '#FF6384', '#4BC0C0', '#9966FF');
+            }
+
+            const ctx = document.getElementById('overallChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Percentual',
+                        data: dados,
+                        backgroundColor: backgroundColors,
+                        borderColor: backgroundColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function (value) {
+                                    return value + "%";
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => `${value.toFixed(1)}%`,
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Gráfico Geral de Dados (em %)'
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+
+            const performanceElement = document.getElementById('performance');
+            performanceElement.textContent = `Desempenho da Turma: ${((totalPresencas + totalJustificativas) / totalEventos * 100).toFixed(2)}%`;
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+        }
+
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Adiciona o título ao PDF
+            doc.setFontSize(16);
+            doc.text('Análise Acadêmica Integral', doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+
+            // Captura as datas de início e fim
+            const dataInicio = document.getElementById('dataInicio').value;
+            const dataFim = document.getElementById('dataFim').value;
+
+            // Formata as datas para o formato DD/MM/AAAA
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            const inicioFormatado = new Date(dataInicio).toLocaleDateString('pt-BR', options);
+            const fimFormatado = new Date(dataFim).toLocaleDateString('pt-BR', options);
+
+            // Adiciona o período de análise ao PDF
+            doc.setFontSize(12);
+            doc.text(`Análise feita do período de ${inicioFormatado} até ${fimFormatado}`, doc.internal.pageSize.getWidth() / 2, 35, { align: 'center' });
+
+            const turma = document.querySelector('.turma-fields');
+            const nomeTurma = turma.querySelector('.nomeTurma').value;
+
+            doc.setFontSize(14);
+            doc.text(`Turma: ${nomeTurma}`, 10, 50);
+
+            const overallChartCanvas = document.getElementById('overallChart');
+            const overallChartImage = overallChartCanvas.toDataURL('image/png');
+            doc.addImage(overallChartImage, 'PNG', 10, 70, 180, 100); // Ajustando o tamanho no PDF e espaçamento
+
+            // Adiciona detalhes abaixo do gráfico
+            let yOffset = 180; // Posição abaixo do gráfico
+            doc.setFontSize(12);
+            // Adiciona informações de presença, justificativa e falta na mesma linha
+            doc.text(`Presenças: ${turma.querySelector('.totalPresencas').value} | Justificativas: ${turma.querySelector('.totalJustificativas').value} | Faltas: ${turma.querySelector('.totalFaltas').value}`, 10, yOffset);
+            yOffset += 10;
+
+            // Adiciona informações de gênero dos professores na mesma linha
+            if (document.getElementById('incluirGeneroProfessores').checked) {
+                const professoresHomens = turma.querySelector('.professoresHomens').value || 0;
+                const professorasMulheres = turma.querySelector('.professorasMulheres').value || 0;
+                doc.text(`Professores Homens: ${professoresHomens} | Professoras Mulheres: ${professorasMulheres}`, 10, yOffset);
+                yOffset += 10;
+            }
+
+            // Adiciona informações de gênero dos alunos na mesma linha
+            if (document.getElementById('incluirGeneroAlunos').checked) {
+                const alunosHomens = turma.querySelector('.alunosHomens').value || 0;
+                const alunasMulheres = turma.querySelector('.alunasMulheres').value || 0;
+                const alunosLGBTQIA = turma.querySelector('.alunosLGBTQIA').value || 0;
+                doc.text(`Alunos Homens: ${alunosHomens} | Alunas Mulheres: ${alunasMulheres} | Alunos LGBTQIA+: ${alunosLGBTQIA}`, 10, yOffset);
+                yOffset += 10;
+            }
+
+            // Adiciona informações de raça dos alunos na mesma linha
+            if (document.getElementById('incluirRaca').checked) {
+                const alunosNegros = turma.querySelector('.alunosNegros').value || 0;
+                const alunosPardos = turma.querySelector('.alunosPardos').value || 0;
+                const alunosBrancos = turma.querySelector('.alunosBrancos').value || 0;
+                const alunosAmarelos = turma.querySelector('.alunosAmarelos').value || 0;
+                const alunosIndigenas = turma.querySelector('.alunosIndigenas').value || 0;
+                doc.text(`Negros: ${alunosNegros} | Pardos: ${alunosPardos} | Brancos: ${alunosBrancos} | Amarelos: ${alunosAmarelos} | Indígenas: ${alunosIndigenas}`, 10, yOffset);
+                yOffset += 10;
+            }
+
+            doc.save('Desempenho_Turma.pdf');
+        }
+    </script>
+</body>
+
+</html>

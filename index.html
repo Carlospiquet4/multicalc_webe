@@ -58,7 +58,6 @@
             transition: background-color 0.3s ease;
             overflow: hidden;
             -moz-appearance: textfield;
-
         }
 
         .form-container input[type="text"],
@@ -73,7 +72,6 @@
             color: #000000;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
                 inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            /* Sombras internas e externas */
             transition: background-color 0.3s ease;
             overflow: hidden;
             -moz-appearance: textfield;
@@ -94,7 +92,6 @@
 
         .num-subjects-input {
             width: 200px;
-            /* Ajuste da largura */
             padding: 8px;
             font-size: 14px;
             margin-right: 10px;
@@ -128,7 +125,6 @@
             padding: 10px;
             margin-top: 13px;
             background-color: #564c6e;
-            /* Cor para lembrar botões de calculadora */
             color: #ffffff;
             border: 2px solid #ccc;
             border-radius: 5px;
@@ -136,7 +132,6 @@
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
                 inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            /* Sombras internas e externas */
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
@@ -153,7 +148,6 @@
             padding: 10px;
             margin-top: 15px;
             background-color: #ff9335;
-            /* Cor para lembrar botões de calculadora */
             color: #000000;
             border: 2px solid #ccc;
             border-radius: 5px;
@@ -161,7 +155,6 @@
             cursor: pointer;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
                 inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            /* Sombras internas e externas */
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
@@ -204,7 +197,6 @@
         }
 
         @keyframes flutuar {
-
             0%,
             100% {
                 transform: translateY(0);
@@ -230,6 +222,9 @@
         <input type="text" id="studentName" placeholder="Nome do Aluno" required>
         <label for="studentClass">Turma</label>
         <input type="text" class="short-input" id="studentClass" placeholder="Turma" required>
+        <label for="customMessage">Digite aqui o que desejar (link, observações, etc.):</label>
+        <input type="text" id="customMessage" placeholder="Digite sua mensagem ou link aqui">
+
         <label for="numSubjects">Número de Matérias</label>
         <input type="number" class="num-subjects-input" id="numSubjects" min="1" max="25" value="">
 
@@ -272,6 +267,18 @@
             <button type="button" id="removeObsButton" class="general-button" onclick="removeObservations()"
                 style="display:none;">Remover Observações</button>
             <p id="savedObs" style="color: white;"></p>
+        </div>
+
+        <div class="checkbox-container" id="watermarkContainer">
+            <div>
+                <input type="checkbox" id="watermarkCheckbox" onchange="toggleImageUpload()">
+                <label for="watermarkCheckbox">Adicionar Marca D'água</label>
+            </div>
+        </div>
+
+        <div id="imageUploadField" style="display: none;">
+            <label for="watermarkImage">Carregar imagem para a marca d'água:</label>
+            <input type="file" id="watermarkImage" accept="image/*">
         </div>
 
         <button type="button" class="general-button" onclick="calculateAverage()">Calcular Média</button>
@@ -427,9 +434,9 @@
             document.getElementById('removeObsButton').style.display = 'none';
         }
 
-        function generateQRCode(name, turma, average, tccAverage, observations, date, size = 100) {
+        function generateQRCode(name, turma, average, tccAverage, observations, customMessage, date, size = 100) {
             const authKey = generateAuthKey();
-            const qrText = `Nome: ${name}\nTurma: ${turma}\nMédia Ponderada: ${average}\nMédia do TCC: ${tccAverage}\nObservações: ${observations}\nData: ${date}\nChave de Autenticação: ${authKey}`;
+            const qrText = `Nome: ${name}\nTurma: ${turma}\nMensagem: ${customMessage}\nMédia Ponderada: ${average}\nMédia do TCC: ${tccAverage}\nObservações: ${observations}\nData: ${date}\nChave de Autenticação: ${authKey}`;
             const qr = new QRious({
                 value: qrText,
                 size: size
@@ -468,12 +475,13 @@
 
             const studentName = document.getElementById('studentName').value;
             const studentClass = document.getElementById('studentClass').value;
+            const customMessage = document.getElementById('customMessage').value;
             const numSubjects = parseInt(document.getElementById('numSubjects').value, 10);
             const average = document.getElementById('average').textContent.split(': ')[1];
             const tccAverage = document.getElementById('tccResultField').style.display !== 'none' ? document.getElementById('tccResult').textContent.split(': ')[1] : "N/A";
             const date = new Date().toLocaleDateString('pt-BR');
 
-            const qrCodeData = generateQRCode(studentName, studentClass, average, tccAverage, savedObservations, date, 100);
+            const qrCodeData = generateQRCode(studentName, studentClass, average, tccAverage, savedObservations, customMessage, date, 100);
             const qrCodeX = pageWidth - margins.right - 4;
             const qrCodeY = margins.top;
             doc.addImage(qrCodeData, 'JPEG', qrCodeX, qrCodeY, 4, 4);
@@ -537,31 +545,42 @@
                 });
             }
 
-            const watermarkImg = new Image();
-            watermarkImg.src = '03.png';
-            watermarkImg.onload = function () {
-                const watermarkImgData = watermarkImg.src;
-                const watermarkWidth = pageWidth * 0.5;
-                const watermarkHeight = watermarkWidth;
-                const watermarkX = (pageWidth - watermarkWidth) / 2;
-                const watermarkY = (pageHeight - watermarkHeight) / 2;
+            // Adiciona a mensagem personalizada no rodapé
+            if (customMessage) {
+                doc.setFontSize(10);
+                doc.text(`Mensagem/Link: ${customMessage}`, margins.left + innerMargins, pageHeight - margins.bottom + 1);
+            }
 
-                doc.setGState(new doc.GState({ opacity: 0.1 }));
-                doc.addImage(watermarkImgData, 'JPEG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
-                doc.setGState(new doc.GState({ opacity: 1 }));
+            // Verifica se a marca d'água deve ser adicionada
+            const watermarkCheckbox = document.getElementById('watermarkCheckbox');
+            const watermarkImageInput = document.getElementById('watermarkImage');
+            if (watermarkCheckbox.checked && watermarkImageInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const watermarkImgData = event.target.result;
+                    const watermarkWidth = pageWidth * 0.5;
+                    const watermarkHeight = watermarkWidth;
+                    const watermarkX = (pageWidth - watermarkWidth) / 2;
+                    const watermarkY = (pageHeight - watermarkHeight) / 2;
 
+                    doc.setGState(new doc.GState({ opacity: 0.1 }));
+                    doc.addImage(watermarkImgData, 'JPEG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
+                    doc.setGState(new doc.GState({ opacity: 1 }));
+
+                    doc.setDrawColor(0);
+                    doc.setLineWidth(0.1);
+                    doc.line(margins.left, pageHeight - margins.bottom, pageWidth - margins.right, pageHeight - margins.bottom);
+
+                    doc.save('Relatorio_Medias.pdf');
+                };
+                reader.readAsDataURL(watermarkImageInput.files[0]);
+            } else {
                 doc.setDrawColor(0);
                 doc.setLineWidth(0.1);
                 doc.line(margins.left, pageHeight - margins.bottom, pageWidth - margins.right, pageHeight - margins.bottom);
 
-                doc.setFontSize(10);
-                doc.setFont('times', 'italic');
-                doc.text('ESAP=https://pge.rj.gov.br/servicos/esap-escola-superior-de-advocacia-publica-do-estado', pageWidth - margins.right, pageHeight - margins.bottom + 0.5, {
-                    align: 'right'
-                });
-
                 doc.save('Relatorio_Medias.pdf');
-            };
+            }
         }
 
         function toggleTccFields() {
@@ -578,6 +597,11 @@
             const includeTccCheckbox = document.getElementById('includeTcc');
             const tccWeightField = document.getElementById('tccWeightField');
             tccWeightField.style.display = includeTccCheckbox.checked ? 'block' : 'none';
+        }
+
+        function toggleImageUpload() {
+            const imageUploadField = document.getElementById('imageUploadField');
+            imageUploadField.style.display = document.getElementById('watermarkCheckbox').checked ? 'block' : 'none';
         }
     </script>
 </body>

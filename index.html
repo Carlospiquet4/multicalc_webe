@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,8 +17,8 @@
             justify-content: center;
             min-height: 100vh;
             color: #ffffff;
+            font-weight: bold;
         }
-
         .form-container {
             max-width: 700px;
             background-color: rgba(62, 62, 62, 0.9);
@@ -29,7 +28,6 @@
             color: #fff;
             width: 100%;
         }
-
         h1 {
             font-size: 24px;
             text-align: center;
@@ -37,13 +35,11 @@
             color: #fffeee;
             text-shadow: 2px 2px 4px #000000;
         }
-
         .form-container label {
             font-weight: bold;
             margin-top: 15px;
             display: block;
         }
-
         .form-container input[type="number"] {
             width: calc(20% - 24px);
             padding: 1%;
@@ -53,13 +49,11 @@
             font-size: 16px;
             background-color: #b6b4b4;
             color: #000000;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease;
             overflow: hidden;
             -moz-appearance: textfield;
         }
-
         .form-container input[type="text"],
         .obs-container textarea {
             width: calc(90% - 24px);
@@ -70,39 +64,33 @@
             font-size: 16px;
             background-color: #b6b4b4;
             color: #000000;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease;
             overflow: hidden;
             -moz-appearance: textfield;
         }
-
         .form-container input[type="text"]:focus,
         .form-container input[type="number"]:focus,
         .obs-container textarea:focus {
             background-color: #ffffff;
         }
-
         .short-input {
             width: 80px;
             padding: 8px;
             font-size: 14px;
             margin-right: 10px;
         }
-
         .num-subjects-input {
             width: 200px;
             padding: 8px;
             font-size: 14px;
             margin-right: 10px;
         }
-
         .subject {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
-
         .subject input[type="text"] {
             width: calc(80% - 24px);
             padding: 8px;
@@ -110,7 +98,6 @@
             margin-right: 10px;
             max-length: 65;
         }
-
         .subject input[type="number"],
         .tcc-grades input[type="number"],
         #tccWeight {
@@ -118,6 +105,26 @@
             padding: 8px;
             font-size: 14px;
             margin-right: 10px;
+        }
+        .aluno-button {
+            width: 60%;
+            padding: 10px;
+            margin-top: 13px;
+            background-color: #00b463;
+            color: #000000;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: bold;
+        }
+        .aluno-button:hover{
+            background-color: #fcfdff;
+        }
+        .aluno-button:hover{
+            transform: scale(0.98);            
         }
 
         .form-container button.general-button {
@@ -130,19 +137,15 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
-
         .form-container button.general-button:hover {
             background-color: #3060d0;
         }
-
         .form-container button.general-button:active {
             transform: scale(0.98);
         }
-
         .faltas-button {
             width: 50%;
             padding: 10px;
@@ -153,15 +156,12 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
-
         .faltas-button:hover {
             background-color: #ebbf5e;
         }
-
         .checkbox-container {
             display: flex;
             align-items: center;
@@ -169,12 +169,10 @@
             gap: 15px;
             margin-top: 15px;
         }
-
         .checkbox-container label {
             font-size: 14px;
             color: #fffeee;
         }
-
         .rodape-flutuante {
             font-size: 15px;
             color: #ffffff;
@@ -186,7 +184,6 @@
             text-align: center;
             margin-top: 7%;
         }
-
         #result {
             margin-top: 20px;
             font-size: 18px;
@@ -195,18 +192,15 @@
             text-shadow: 1px 1px 3px #000000;
             display: none;
         }
-
         @keyframes flutuar {
             0%,
             100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-10px);
             }
         }
-
         @media (max-width: 600px) {
             .form-container {
                 padding: 20px;
@@ -214,7 +208,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="form-container">
         <h1>MÉDIA PONDERADA</h1>
@@ -224,10 +217,8 @@
         <input type="text" class="short-input" id="studentClass" placeholder="Turma" required>
         <label for="customMessage">Digite aqui o que desejar (link, observações, etc.):</label>
         <input type="text" id="customMessage" placeholder="Digite sua mensagem ou link aqui">
-
         <label for="numSubjects">Número de Matérias</label>
         <input type="number" class="num-subjects-input" id="numSubjects" min="1" max="25" value="">
-
         <div id="subjectsContainer"></div>
         <div class="checkbox-container" id="addTccContainer">
             <div>
@@ -261,11 +252,9 @@
 
         <div id="obsField" class="obs-container" style="display: none;">
             <label for="obs">Observações:</label>
-            <textarea id="obs" placeholder="Digite as observações (máximo 168 caracteres)" maxlength="168"
-                style="resize: vertical; height: 70px;"></textarea>
+            <textarea id="obs" placeholder="Digite as observações (máximo 168 caracteres)" maxlength="168" style="resize: vertical; height: 70px;"></textarea>
             <button type="button" class="general-button" onclick="saveObservations()">Salvar Observações</button>
-            <button type="button" id="removeObsButton" class="general-button" onclick="removeObservations()"
-                style="display:none;">Remover Observações</button>
+            <button type="button" id="removeObsButton" class="general-button" onclick="removeObservations()" style="display:none;">Remover Observações</button>
             <p id="savedObs" style="color: white;"></p>
         </div>
 
@@ -285,9 +274,12 @@
         <div id="result">
             <p id="average"></p>
         </div>
+        
+        <button type="button" class="aluno-button" onclick="addStudent()">Adicionar Aluno</button>
+        <button type="button" class="aluno-button" onclick="exportAllData()">Exportar Todos os Dados para Excel</button>
+        
         <button type="button" id="generatePDF" class="general-button">Gerar PDF</button>
-        <button type="button" class="faltas-button" onclick="window.location.href='faltas.html'">Calculadora de
-            Porcentagem de Faltas</button>
+        <button type="button" class="faltas-button" onclick="window.location.href='faltas.html'">Calculadora de Porcentagem de Faltas</button>
     </div>
 
     <div class="rodape-flutuante">
@@ -296,6 +288,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('generatePDF').addEventListener('click', generatePDF);
@@ -304,31 +298,11 @@
         });
 
         let savedObservations = "";
+        let studentsData = []; // Array para armazenar os dados dos alunos
 
         function createSubjectFields(numSubjects) {
             const subjectsContainer = document.getElementById('subjectsContainer');
             subjectsContainer.innerHTML = "";
-
-            const subjectNames = [
-                "Teoria do Direito",
-                "Princípios Institucionais da Advocacia de Estado",
-                "Novas Tendências em Direito Constitucional",
-                "Novas Tendências em Direito Administrativo",
-                "Gestão Pública e Advocacia de Estado",
-                "Assessoria e Consultoria Jurídica em Projetos de Infraestrutura",
-                "Direito e Políticas Públicas",
-                "Direito Ambiental e Sustentabilidade",
-                "Advocacia Pública Fiscal e Tributária",
-                "Sistemas de Integridade Pública e Privada",
-                "Contratos Administrativos e Responsabilidade Civil do Estado",
-                "Fazenda Pública em Juízo",
-                "Métodos Extrajudiciais de Resolução de Conflitos",
-                "Relações Contratuais de Trabalho na Administração Pública",
-                "Regime Jurídico dos Servidores Públicos",
-                "Regime Previdenciário dos Servidores Públicos",
-                "Defesa de Políticas Públicas em Juízo",
-                "Metodologia"
-            ];
 
             for (let i = 1; i <= numSubjects; i++) {
                 const subjectDiv = document.createElement('div');
@@ -338,8 +312,6 @@
                 subjectNameInput.type = 'text';
                 subjectNameInput.placeholder = `Nome da Matéria ${i}`;
                 subjectNameInput.id = `subjectName${i}`;
-                subjectNameInput.maxLength = 65;
-                subjectNameInput.value = subjectNames[i - 1] || '';
                 subjectDiv.appendChild(subjectNameInput);
 
                 const gradeInput = document.createElement('input');
@@ -347,7 +319,6 @@
                 gradeInput.step = '0.1';
                 gradeInput.placeholder = 'Nota';
                 gradeInput.id = `grade${i}`;
-                gradeInput.className = 'nota';
                 subjectDiv.appendChild(gradeInput);
 
                 const weightInput = document.createElement('input');
@@ -355,7 +326,6 @@
                 weightInput.step = '0.1';
                 weightInput.placeholder = 'Peso';
                 weightInput.id = `weight${i}`;
-                weightInput.className = 'peso';
                 subjectDiv.appendChild(weightInput);
 
                 subjectsContainer.appendChild(subjectDiv);
@@ -417,6 +387,54 @@
 
             const result = document.getElementById('result');
             result.style.display = 'block';
+            return average; // Retorna a média calculada
+        }
+
+        function addStudent() {
+            const name = document.getElementById('studentName').value;
+            const classValue = document.getElementById('studentClass').value;
+            const customMessage = document.getElementById('customMessage').value;
+            const numSubjects = parseInt(document.getElementById('numSubjects').value, 10);
+            const subjects = [];
+            let tccAverage = null; // Variável para armazenar a média do TCC
+
+            for (let i = 1; i <= numSubjects; i++) {
+                const subjectName = document.getElementById(`subjectName${i}`).value;
+                const grade = parseFloat(document.getElementById(`grade${i}`).value);
+                const weight = parseFloat(document.getElementById(`weight${i}`).value);
+                subjects.push({ subjectName, grade, weight });
+            }
+
+            const average = calculateAverage(); // Calcula a média antes de adicionar
+
+            const tccCheckbox = document.getElementById('tccCheckbox');
+            if (tccCheckbox && tccCheckbox.checked) {
+                const tccGrade1 = parseFloat(document.getElementById('tccGrade1').value);
+                const tccGrade2 = parseFloat(document.getElementById('tccGrade2').value);
+                const tccGrade3 = parseFloat(document.getElementById('tccGrade3').value);
+
+                if (!isNaN(tccGrade1) && !isNaN(tccGrade2) && !isNaN(tccGrade3)) {
+                    tccAverage = (tccGrade1 + tccGrade2 + tccGrade3) / 3;
+                }
+            }
+
+            studentsData.push({ name, classValue, customMessage, average, subjects, tccAverage }); // Adiciona aluno ao array
+            alert('Aluno adicionado com sucesso!');
+        }
+
+        function exportAllData() {
+            const workbook = XLSX.utils.book_new();
+            const worksheetData = [["Nome do Aluno", "Turma", "Média Ponderada", "Média do TCC"]]; // Cabeçalho atualizado
+
+            studentsData.forEach(student => {
+                const tccAverage = student.tccAverage !== null ? student.tccAverage.toFixed(2) : "N/A"; // Coletando a média do TCC
+                worksheetData.push([student.name, student.classValue, student.average.toFixed(2), tccAverage]);
+            });
+
+            const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Resultados");
+
+            XLSX.writeFile(workbook, "Resultados_Media_Ponderada.xlsx");
         }
 
         function saveObservations() {
@@ -432,20 +450,6 @@
             document.getElementById('savedObs').textContent = "";
             document.getElementById('obs').value = "";
             document.getElementById('removeObsButton').style.display = 'none';
-        }
-
-        function generateQRCode(name, turma, average, tccAverage, observations, customMessage, date, size = 100) {
-            const authKey = generateAuthKey();
-            const qrText = `Nome: ${name}\nTurma: ${turma}\nMensagem: ${customMessage}\nMédia Ponderada: ${average}\nMédia do TCC: ${tccAverage}\nObservações: ${observations}\nData: ${date}\nChave de Autenticação: ${authKey}`;
-            const qr = new QRious({
-                value: qrText,
-                size: size
-            });
-            return qr.toDataURL();
-        }
-
-        function generateAuthKey() {
-            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
 
         async function generatePDF() {
@@ -545,13 +549,11 @@
                 });
             }
 
-            // Adiciona a mensagem personalizada no rodapé
             if (customMessage) {
                 doc.setFontSize(10);
                 doc.text(`Mensagem/Link: ${customMessage}`, margins.left + innerMargins, pageHeight - margins.bottom + 1);
             }
 
-            // Verifica se a marca d'água deve ser adicionada
             const watermarkCheckbox = document.getElementById('watermarkCheckbox');
             const watermarkImageInput = document.getElementById('watermarkImage');
             if (watermarkCheckbox.checked && watermarkImageInput.files.length > 0) {
@@ -603,7 +605,75 @@
             const imageUploadField = document.getElementById('imageUploadField');
             imageUploadField.style.display = document.getElementById('watermarkCheckbox').checked ? 'block' : 'none';
         }
+
+        function exportToExcel() {
+            const workbook = XLSX.utils.book_new();
+            const worksheetData = [
+                ["Nome do Aluno", "Turma", "Média Ponderada"], // Cabeçalho
+                [
+                    document.getElementById('studentName').value,
+                    document.getElementById('studentClass').value,
+                    document.getElementById('average').textContent.split(': ')[1]
+                ]
+            ];
+
+            const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Resultados");
+
+            XLSX.writeFile(workbook, "Resultados_Media_Ponderada.xlsx");
+        }
+
+        function authenticate() {
+            return gapi.auth2.getAuthInstance()
+                .signIn({ scope: "https://www.googleapis.com/auth/spreadsheets" })
+                .then(function () { console.log("Autenticado com sucesso"); },
+                    function (err) { console.error("Erro ao autenticar", err); });
+        }
+
+        function exportToGoogleSheets() {
+            authenticate().then(() => {
+                const spreadsheetId = 'SEU_SPREADSHEET_ID'; // Substitua pelo seu ID da planilha
+                const range = 'A1:C1'; // Defina o intervalo onde os dados serão inseridos
+
+                const values = [
+                    ["Nome do Aluno", "Turma", "Média Ponderada"], // Cabeçalho
+                    [
+                        document.getElementById('studentName').value,
+                        document.getElementById('studentClass').value,
+                        document.getElementById('average').textContent.split(': ')[1]
+                    ]
+                ];
+
+                const body = {
+                    values: values
+                };
+
+                gapi.client.sheets.spreadsheets.values.update({
+                    spreadsheetId: spreadsheetId,
+                    range: range,
+                    valueInputOption: "RAW",
+                    resource: body
+                }).then((response) => {
+                    console.log(`${response.result.updatedCells} células atualizadas.`);
+                }, (err) => {
+                    console.error("Erro ao atualizar células", err);
+                });
+            });
+        }
+
+        function generateQRCode(name, turma, average, tccAverage, observations, customMessage, date, size = 100) {
+            const authKey = generateAuthKey();
+            const qrText = `Nome: ${name}\nTurma: ${turma}\nMensagem: ${customMessage}\nMédia Ponderada: ${average}\nMédia do TCC: ${tccAverage}\nObservações: ${observations}\nData: ${date}\nChave de Autenticação: ${authKey}`;
+            const qr = new QRious({
+                value: qrText,
+                size: size
+            });
+            return qr.toDataURL();
+        }
+
+        function generateAuthKey() {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
     </script>
 </body>
-
 </html>

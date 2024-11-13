@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
             color: #ffffff;
             font-weight: bold;
         }
+
         .form-container {
             max-width: 700px;
             background-color: rgba(62, 62, 62, 0.9);
@@ -28,6 +30,7 @@
             color: #fff;
             width: 100%;
         }
+
         h1 {
             font-size: 24px;
             text-align: center;
@@ -35,11 +38,13 @@
             color: #fffeee;
             text-shadow: 2px 2px 4px #000000;
         }
+
         .form-container label {
             font-weight: bold;
             margin-top: 15px;
             display: block;
         }
+
         .form-container input[type="number"] {
             width: calc(20% - 24px);
             padding: 1%;
@@ -54,6 +59,7 @@
             overflow: hidden;
             -moz-appearance: textfield;
         }
+
         .form-container input[type="text"],
         .obs-container textarea {
             width: calc(90% - 24px);
@@ -69,28 +75,33 @@
             overflow: hidden;
             -moz-appearance: textfield;
         }
+
         .form-container input[type="text"]:focus,
         .form-container input[type="number"]:focus,
         .obs-container textarea:focus {
             background-color: #ffffff;
         }
+
         .short-input {
             width: 80px;
             padding: 8px;
             font-size: 14px;
             margin-right: 10px;
         }
+
         .num-subjects-input {
             width: 200px;
             padding: 8px;
             font-size: 14px;
             margin-right: 10px;
         }
+
         .subject {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .subject input[type="text"] {
             width: calc(80% - 24px);
             padding: 8px;
@@ -98,6 +109,7 @@
             margin-right: 10px;
             max-length: 65;
         }
+
         .subject input[type="number"],
         .tcc-grades input[type="number"],
         #tccWeight {
@@ -106,6 +118,7 @@
             font-size: 14px;
             margin-right: 10px;
         }
+
         .aluno-button {
             width: 60%;
             padding: 10px;
@@ -120,11 +133,13 @@
             transition: background-color 0.3s ease, transform 0.1s ease;
             font-weight: bold;
         }
-        .aluno-button:hover{
+
+        .aluno-button:hover {
             background-color: #fcfdff;
         }
-        .aluno-button:hover{
-            transform: scale(0.98);            
+
+        .aluno-button:hover {
+            transform: scale(0.98);
         }
 
         .btn-nova-turma {
@@ -163,12 +178,15 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
+
         .form-container button.general-button:hover {
             background-color: #3060d0;
         }
+
         .form-container button.general-button:active {
             transform: scale(0.98);
         }
+
         .faltas-button {
             width: 50%;
             padding: 10px;
@@ -182,9 +200,11 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
+
         .faltas-button:hover {
             background-color: #ebbf5e;
         }
+
         .checkbox-container {
             display: flex;
             align-items: center;
@@ -192,10 +212,12 @@
             gap: 15px;
             margin-top: 15px;
         }
+
         .checkbox-container label {
             font-size: 14px;
             color: #fffeee;
         }
+
         .rodape-flutuante {
             font-size: 15px;
             color: #ffffff;
@@ -207,6 +229,7 @@
             text-align: center;
             margin-top: 7%;
         }
+
         #result {
             margin-top: 20px;
             font-size: 18px;
@@ -215,15 +238,19 @@
             text-shadow: 1px 1px 3px #000000;
             display: none;
         }
+
         @keyframes flutuar {
+
             0%,
             100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-10px);
             }
         }
+
         @media (max-width: 600px) {
             .form-container {
                 padding: 20px;
@@ -231,6 +258,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <h1>MÉDIA PONDERADA</h1>
@@ -275,9 +303,11 @@
 
         <div id="obsField" class="obs-container" style="display: none;">
             <label for="obs">Observações:</label>
-            <textarea id="obs" placeholder="Digite as observações (máximo 168 caracteres)" maxlength="168" style="resize: vertical; height: 70px;"></textarea>
+            <textarea id="obs" placeholder="Digite as observações (máximo 64 caracteres)" maxlength="64"
+                style="resize: vertical; height: 70px;"></textarea>
             <button type="button" class="general-button" onclick="saveObservations()">Salvar Observações</button>
-            <button type="button" id="removeObsButton" class="general-button" onclick="removeObservations()" style="display:none;">Remover Observações</button>
+            <button type="button" id="removeObsButton" class="general-button" onclick="removeObservations()"
+                style="display:none;">Remover Observações</button>
             <p id="savedObs" style="color: white;"></p>
         </div>
 
@@ -297,13 +327,14 @@
         <div id="result">
             <p id="average"></p>
         </div>
-        
+
         <button type="button" class="aluno-button" onclick="addStudent()">Adicionar Aluno</button>
         <button type="button" class="aluno-button" onclick="exportAllData()">Exportar Todos os Dados para Excel</button>
-        
+
         <button type="button" id="generatePDF" class="general-button">Gerar PDF</button>
         <button type="button" class="btn-nova-turma" onclick="novaTurma()">Nova Turma</button>
-        <button type="button" class="faltas-button" onclick="window.location.href='faltas.html'">Calculadora de Porcentagem de Faltas</button>
+        <button type="button" class="faltas-button" onclick="window.location.href='faltas.html'">Calculadora de
+            Porcentagem de Faltas</button>
     </div>
 
     <div class="rodape-flutuante">
@@ -689,9 +720,14 @@
             });
         }
 
-        function generateQRCode(name, turma, average, tccAverage, observations, customMessage, date, size = 100) {
+        function generateQRCode(name, turma, average, tccAverage, observations, customMessage, date, size = 150) {
+            // Gerar uma chave de autenticação mais longa
             const authKey = generateAuthKey();
-            const qrText = `Nome: ${name}\nTurma: ${turma}\nMensagem: ${customMessage}\nMédia Ponderada: ${average}\nMédia do TCC: ${tccAverage}\nObservações: ${observations}\nData: ${date}\nChave de Autenticação: ${authKey}`;
+
+            // Ajustar o texto do QR Code para incluir o nome completo do aluno e limitar as observações a 60 caracteres
+            const qrText = `Nome: ${name}\nTurma: ${turma.substring(0, 10)}\nMédia: ${average}\nTCC: ${tccAverage}\nObs: ${observations.substring(0, 60)}\nChave de Autenticação: ${authKey}`;
+
+            // Criar o QR Code com o texto ajustado e tamanho aumentado
             const qr = new QRious({
                 value: qrText,
                 size: size
@@ -700,8 +736,12 @@
         }
 
         function generateAuthKey() {
-            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            // Aumentar o comprimento da chave de autenticação
+            return Math.random().toString(36).substring(2, 18) + Math.random().toString(36).substring(2, 18);
         }
+
+
     </script>
 </body>
+
 </html>

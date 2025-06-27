@@ -4,341 +4,635 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MÉDIA PONDERADA</title>
+    <title>Sistema de Cálculo de Média Ponderada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: url(04.png) no-repeat center center fixed;
-            background-size: cover;
+        * {
             margin: 0;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary-color: #f8fafc;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius: 12px;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
             min-height: 100vh;
-            color: #ffffff;
-            font-weight: bold;
+            padding: 2rem 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
-        .form-container {
-            max-width: 700px;
-            background-color: rgba(62, 62, 62, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0px 20px rgba(0, 0, 0, 0.5);
-            color: #fff;
-            width: 100%;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        h1 {
-            font-size: 24px;
+        .header {
             text-align: center;
-            margin-bottom: 20px;
-            color: #fffeee;
-            text-shadow: 2px 2px 4px #000000;
+            margin-bottom: 2rem;
+            color: white;
         }
 
-        .form-container label {
-            font-weight: bold;
-            margin-top: 15px;
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            background: var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-section h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
             display: block;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        .form-container input[type="number"] {
-            width: calc(20% - 24px);
-            padding: 1%;
-            margin-top: 2%;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            background-color: #b6b4b4;
-            color: #000000;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-            overflow: hidden;
-            -moz-appearance: textfield;
+        .input-group {
+            position: relative;
         }
 
-        .form-container input[type="text"],
-        .obs-container textarea {
-            width: calc(90% - 24px);
-            padding: 1%;
-            margin-top: 2%;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            background-color: #b6b4b4;
-            color: #000000;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-            overflow: hidden;
-            -moz-appearance: textfield;
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: white;
+            font-family: inherit;
         }
 
-        .form-container input[type="text"]:focus,
-        .form-container input[type="number"]:focus,
-        .obs-container textarea:focus {
-            background-color: #ffffff;
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .short-input {
-            width: 80px;
-            padding: 8px;
-            font-size: 14px;
-            margin-right: 10px;
+        .input-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
         }
 
-        .num-subjects-input {
-            width: 200px;
-            padding: 8px;
-            font-size: 14px;
-            margin-right: 10px;
+        .subject-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0.75rem;
+            align-items: end;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
         }
 
-        .subject {
+        .subject-item:hover {
+            box-shadow: var(--card-shadow);
+            transform: translateY(-1px);
+        }
+
+        .subjects-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .subjects-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .subjects-container::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .subjects-container::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            gap: 0.5rem;
         }
 
-        .subject input[type="text"] {
-            width: calc(80% - 24px);
-            padding: 8px;
-            font-size: 14px;
-            margin-right: 10px;
-            max-length: 65;
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            accent-color: var(--primary-color);
         }
 
-        .subject input[type="number"],
-        .tcc-grades input[type="number"],
-        #tccWeight {
-            width: 62px;
-            padding: 8px;
-            font-size: 14px;
-            margin-right: 10px;
+        .checkbox-item label {
+            margin: 0;
+            font-size: 0.85rem;
+            font-weight: 400;
         }
 
-        .aluno-button {
-            width: 60%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #00b463;
-            color: #000000;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            font-weight: bold;
+        .tcc-grades {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .aluno-button:hover {
-            background-color: #fcfdff;
-        }
-
-        .aluno-button:hover {
-            transform: scale(0.98);
-        }
-
-        .btn-nova-turma {
-            width: 30%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #fb1d1d;
-            color: #000000;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            font-weight: bold;
+        .button-group {
             display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
             justify-content: center;
-            text-align: center;
-            vertical-align: middle;
+            margin-top: 2rem;
         }
 
-        .btn-nova-turma:hover {
-            background-color: #eb0404;
-        }
-
-        .form-container button.general-button {
-            width: 60%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #564c6e;
-            color: #ffffff;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-        }
-
-        .form-container button.general-button:hover {
-            background-color: #3060d0;
-        }
-
-        .form-container button.general-button:active {
-            transform: scale(0.98);
-        }
-
-        .faltas-button {
-            width: 50%;
-            padding: 10px;
-            margin-top: 15px;
-            background-color: #ff9335;
-            color: #000000;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-        }
-
-        .faltas-button:hover {
-            background-color: #ebbf5e;
-        }
-
-        .checkbox-container {
-            display: flex;
+            transition: all 0.3s ease;
+            display: inline-flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: inherit;
+            min-width: 120px;
+            justify-content: center;
         }
 
-        .checkbox-container label {
-            font-size: 14px;
-            color: #fffeee;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow);
         }
 
-        .rodape-flutuante {
-            font-size: 15px;
-            color: #ffffff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            animation: flutuar 3s ease-in-out infinite;
-            background-color: rgba(0, 0, 0, 0.5);
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-secondary {
+            background: var(--text-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
             text-align: center;
-            margin-top: 7%;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fffeee;
-            text-shadow: 1px 1px 3px #000000;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
             display: none;
         }
 
-        @keyframes flutuar {
+        .result-card.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
 
-            0%,
-            100% {
-                transform: translateY(0);
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
 
-            50% {
-                transform: translateY(-10px);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 600px) {
-            .form-container {
-                padding: 20px;
+        .result-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-card .result-value {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-item .label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-item .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .card-body {
+                padding: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .subject-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .tcc-grades {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .result-value {
+                font-size: 2rem !important;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="form-container">
-        <h1>MÉDIA PONDERADA</h1>
-        <label for="studentName">Nome do Aluno</label>
-        <input type="text" id="studentName" placeholder="Nome do Aluno" required>
-        <label for="studentClass">Turma</label>
-        <input type="text" class="short-input" id="studentClass" placeholder="Turma" required>
-        <label for="customMessage">Digite aqui o que desejar (link, observações, etc.):</label>
-        <input type="text" id="customMessage" placeholder="Digite sua mensagem ou link aqui">
-        <label for="numSubjects">Número de Matérias</label>
-        <input type="number" class="num-subjects-input" id="numSubjects" min="1" max="25" value="">
-        <div id="subjectsContainer"></div>
-        <div class="checkbox-container" id="addTccContainer">
-            <div>
-                <input type="checkbox" id="tccCheckbox" onchange="toggleTccFields()">
-                <label for="tccCheckbox">Adicionar TCC opcional</label>
-            </div>
-            <div>
-                <input type="checkbox" id="obsCheckbox" onchange="toggleObsField()">
-                <label for="obsCheckbox">Adicionar Observações</label>
-            </div>
-            <div>
-                <input type="checkbox" id="includeTcc" onchange="toggleTccWeightField()">
-                <label for="includeTcc">Incluir TCC no cálculo da média</label>
-            </div>
-        </div>
-        <div id="tccFields" style="display: none;">
-            <h3>Notas do TCC</h3>
-            <div class="tcc-grades">
-                <input type="number" id="tccGrade1" placeholder="Nota 1" step="0.1">
-                <input type="number" id="tccGrade2" placeholder="Nota 2" step="0.1">
-                <input type="number" id="tccGrade3" placeholder="Nota 3" step="0.1">
-            </div>
-            <div id="tccWeightField" style="display: none;">
-                <label for="tccWeight">Peso do TCC:</label>
-                <input type="number" id="tccWeight" step="0.1" placeholder="Peso">
-            </div>
-            <div id="tccResultField" style="display: none;">
-                <p id="tccResult"></p>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>Média Ponderada</h1>
+            <p>Calcule sua média ponderada de forma simples e rápida</p>
         </div>
 
-        <div id="obsField" class="obs-container" style="display: none;">
-            <label for="obs">Observações:</label>
-            <textarea id="obs" placeholder="Digite as observações (máximo 64 caracteres)" maxlength="64"
-                style="resize: vertical; height: 70px;"></textarea>
-            <button type="button" class="general-button" onclick="saveObservations()">Salvar Observações</button>
-            <button type="button" id="removeObsButton" class="general-button" onclick="removeObservations()"
-                style="display:none;">Remover Observações</button>
-            <p id="savedObs" style="color: white;"></p>
-        </div>
+        <div class="main-card">
+            <div class="card-header">
+                <h2>Calculadora de Média</h2>
+                <p>Preencha as informações abaixo</p>
+            </div>
+            <div class="card-body">
+                <div class="form-grid">
+                    <div class="form-section">
+                        <h3>Dados do Aluno</h3>
+                        <div class="form-group">
+                            <label for="studentName">Nome do Aluno</label>
+                            <div class="input-group">
+                                <input type="text" id="studentName" placeholder="Nome do Aluno" required>
+                                <span class="input-icon"><i class="fas fa-user"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentClass">Turma</label>
+                            <div class="input-group">
+                                <input type="text" class="short-input" id="studentClass" placeholder="Turma" required>
+                                <span class="input-icon"><i class="fas fa-building"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customMessage">Digite aqui o que desejar (link, observações, etc.):</label>
+                            <div class="input-group">
+                                <input type="text" id="customMessage" placeholder="Digite sua mensagem ou link aqui">
+                                <span class="input-icon"><i class="fas fa-comment-dots"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <h3>Matérias e Notas</h3>
+                        <div class="form-group">
+                            <label for="numSubjects">Número de Matérias</label>
+                            <div class="input-group">
+                                <input type="number" class="num-subjects-input" id="numSubjects" min="1" max="25" value="">
+                                <span class="input-icon"><i class="fas fa-list-alt"></i></span>
+                            </div>
+                        </div>
+                        <div id="subjectsContainer"></div>
+                    </div>
+                </div>
 
-        <div class="checkbox-container" id="watermarkContainer">
-            <div>
-                <input type="checkbox" id="watermarkCheckbox" onchange="toggleImageUpload()">
-                <label for="watermarkCheckbox">Adicionar Marca D'água</label>
+                <div class="checkbox-group" id="addTccContainer">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="tccCheckbox" onchange="toggleTccFields()">
+                        <label for="tccCheckbox">Adicionar TCC opcional</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="obsCheckbox" onchange="toggleObsField()">
+                        <label for="obsCheckbox">Adicionar Observações</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="includeTcc" onchange="toggleTccWeightField()">
+                        <label for="includeTcc">Incluir TCC no cálculo da média</label>
+                    </div>
+                </div>
+                <div id="tccFields" style="display: none;">
+                    <h3>Notas do TCC</h3>
+                    <div class="tcc-grades">
+                        <input type="number" id="tccGrade1" placeholder="Nota 1" step="0.1">
+                        <input type="number" id="tccGrade2" placeholder="Nota 2" step="0.1">
+                        <input type="number" id="tccGrade3" placeholder="Nota 3" step="0.1">
+                    </div>
+                    <div id="tccWeightField" style="display: none;">
+                        <label for="tccWeight">Peso do TCC:</label>
+                        <input type="number" id="tccWeight" step="0.1" placeholder="Peso">
+                    </div>
+                    <div id="tccResultField" style="display: none;">
+                        <p id="tccResult"></p>
+                    </div>
+                </div>
+
+                <div id="obsField" class="obs-container" style="display: none;">
+                    <label for="obs">Observações:</label>
+                    <textarea id="obs" placeholder="Digite as observações (máximo 64 caracteres)" maxlength="64"
+                        style="resize: vertical; height: 70px;"></textarea>
+                    <button type="button" class="btn btn-primary" onclick="saveObservations()">Salvar Observações</button>
+                    <button type="button" id="removeObsButton" class="btn btn-danger" onclick="removeObservations()"
+                        style="display:none;">Remover Observações</button>
+                    <p id="savedObs" style="color: white;"></p>
+                </div>
+
+                <div class="checkbox-group" id="watermarkContainer">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="watermarkCheckbox" onchange="toggleImageUpload()">
+                        <label for="watermarkCheckbox">Adicionar Marca D'água</label>
+                    </div>
+                </div>
+
+                <div id="imageUploadField" style="display: none;">
+                    <label for="watermarkImage">Carregar imagem para a marca d'água:</label>
+                    <input type="file" id="watermarkImage" accept="image/*">
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-success" onclick="calculateAverage()">Calcular Média</button>
+                    <button type="button" class="btn btn-primary" onclick="addStudent()">Adicionar Aluno</button>
+                    <button type="button" class="btn btn-secondary" onclick="exportAllData()">Exportar Todos os Dados para Excel</button>
+                    <button type="button" id="generatePDF" class="btn btn-warning">Gerar PDF</button>
+                    <button type="button" class="btn btn-danger" onclick="novaTurma()">Nova Turma</button>
+                    <button type="button" class="btn btn-info" onclick="window.location.href='faltas.html'">Calculadora de
+                        Porcentagem de Faltas</button>
+                </div>
             </div>
         </div>
 
-        <div id="imageUploadField" style="display: none;">
-            <label for="watermarkImage">Carregar imagem para a marca d'água:</label>
-            <input type="file" id="watermarkImage" accept="image/*">
+        <div class="result-card" id="result">
+            <h3>Resultado da Média Ponderada</h3>
+            <div class="result-value" id="average"></div>
+            <div class="result-details">
+                <div class="result-item">
+                    <div class="label">Média do TCC</div>
+                    <div class="value" id="tccResultValue"></div>
+                </div>
+                <div class="result-item">
+                    <div class="label">Observações</div>
+                    <div class="value" id="savedObsValue"></div>
+                </div>
+                <div class="result-item">
+                    <div class="label">Mensagem/Link</div>
+                    <div class="value" id="customMessageValue"></div>
+                </div>
+            </div>
         </div>
 
-        <button type="button" class="general-button" onclick="calculateAverage()">Calcular Média</button>
-        <div id="result">
-            <p id="average"></p>
+        <div class="footer">
+            <p>Desenvolvido por Carlos Antonio de Oliveira Piquet</p>
         </div>
-
-        <button type="button" class="aluno-button" onclick="addStudent()">Adicionar Aluno</button>
-        <button type="button" class="aluno-button" onclick="exportAllData()">Exportar Todos os Dados para Excel</button>
-
-        <button type="button" id="generatePDF" class="general-button">Gerar PDF</button>
-        <button type="button" class="btn-nova-turma" onclick="novaTurma()">Nova Turma</button>
-        <button type="button" class="faltas-button" onclick="window.location.href='faltas.html'">Calculadora de
-            Porcentagem de Faltas</button>
-    </div>
-
-    <div class="rodape-flutuante">
-        <p>Desenvolvido por Carlos Antonio de Oliveira Piquet</p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

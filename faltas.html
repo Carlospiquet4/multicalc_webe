@@ -2,135 +2,219 @@
 <html lang="pt-BR">
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Porcentagem de Faltas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Manter o estilo existente */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: url(04.png) no-repeat center center fixed;
-            background-size: cover;
+        * {
             margin: 0;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary-color: #f8fafc;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius: 12px;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
             min-height: 100vh;
-            color: #ffffff;
-            font-weight: bold;
+            padding: 2rem 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 700px;
-            background-color: rgba(62, 62, 62, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0px 20px rgba(0, 0, 0, 0.5);
-            color: #fff;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        h1 {
-            font-size: 24px;
+        .header {
             text-align: center;
-            margin-bottom: 20px;
-            color: #fffeee;
-            text-shadow: 2px 2px 4px #000000;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .card-body {
+            padding: 2rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 0.7rem;
         }
 
-        .form-group label {
+        label {
             display: block;
-            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: calc(90% - 20px);
-            padding: 10px;
-            margin-top: 10px;
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            padding: 0.7rem 1rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.97rem;
+            background: #f3f6fa;
+            color: var(--text-primary);
+            box-shadow: 0 1px 4px rgba(37, 99, 235, 0.06);
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="number"]::placeholder,
+        input[type="date"]::placeholder,
+        input[type="email"]::placeholder,
+        textarea::placeholder {
+            color: #8a99b5;
+            opacity: 1;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: #eaf0fb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.10);
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            background-color: #b6b4b4;
-            color: #000000;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-        }
-
-        /* Ajustes específicos para campos menores */
-        #matricula {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            width: calc(55% - 20px);
-        }
-
-        #admissao {
-            width: calc(20% - 12px);
-        }
-
-        #eventos {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            width: calc(15% - 20px);
-        }
-
-        .periodo-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            width: calc(55% - 20px);
-        }
-
-        .periodo-group div {
-            flex: 1;
-        }
-
-        button {
-            width: 60%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #564c6e;
-            color: #ffffff;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: inherit;
+            min-width: 120px;
+            justify-content: center;
         }
 
-        button:hover {
-            background-color: #0404f5;
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
         }
 
-        .button-secondary {
-            width: 40%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #fc9b40;
-            color: #ffffff;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
+        .btn-primary:hover {
+            background: var(--primary-dark);
         }
 
-        .button-secondary:hover {
-            background-color: #0404f5;
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-secondary {
+            background: var(--text-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
         }
 
         .alert {
@@ -138,7 +222,6 @@
             font-weight: bold;
         }
 
-        /* Nova classe para nome em alerta */
         .nome-alerta {
             color: red;
         }
@@ -148,126 +231,118 @@
             text-align: center;
         }
 
-        .evento-group {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
-        .evento-group input,
-        .evento-group textarea {
-            width: calc(32% - 20px);
-            padding: 8px;
-            margin-top: 8px;
-            border: none;
-            border-radius: 10px;
-            font-size: 13px;
-            background-color: #f3e0e0;
-            color: #000000;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-        }
-        .b2-button {
-            width: 60%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #00b463;
-            color: #000000;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            font-weight: bold;
-            
-        }
-        
-            
-        .b2-button:hover {
-            background-color: #fcfdff;
-        }
-        .b3-button {
-            width: 40%;
-            padding: 10px;
-            margin-top: 13px;
-            background-color: #6e0303;
-            color: #ffffff;
-            border: 2px solid #ccc;
-            border-radius: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            font-weight: bold;
-        }
-        .b3-button:hover {
-            background-color: #f3a4a4;
+        .footer a {
+            color: white;
+            text-decoration: none;
         }
 
-        #graficoDesempenho {
-            margin-top: 20px;
-            background-color: white;
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .card-body {
+                padding: 1rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Calculadora de Porcentagem de Faltas</h1>
-        <form id="faltaForm">
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" required>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="turma">Nome da Turma:</label>
-                <input type="text" id="turma" required>
-            </div>
-            <div class="form-group">
-                <label for="matricula">Matrícula:</label>
-                <input type="text" id="matricula" required>
-            </div>
-            <div class="form-group">
-                <label for="admissao">Admissão:</label>
-                <input type="date" id="admissao" required>
-            </div>
-            <div class="form-group periodo-group">
-                <div>
-                    <label for="periodoInicio">Período de:</label>
-                    <input type="date" id="periodoInicio" required>
-                </div>
-                <div>
-                    <label for="periodoFim">Até:</label>
-                    <input type="date" id="periodoFim" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="eventos">Número de Eventos:</label>
-                <input type="number" id="eventos" min="1" max="12" required onchange="gerarCamposEventos()">
-            </div>
-            <div id="eventosContainer"></div>
-            <button type="button" onclick="calcularFaltas()">Calcular</button>
-            <button type="button" onclick="gerarPDF()">Gerar PDF</button>
-            <button type="button" class="b2-button" onclick="addStudent()">Adicionar Aluno</button>
-            <button type="button" class="b2-button" onclick="exportAllData()">Exportar para Excel</button>
-            <button type="button" class="b3-button" onclick="novaTurma()">Nova Turma</button>
-            <button class="button-secondary" type="button" onclick="window.location.href='desempenho.html'">Análise
-                Acadêmica Integral</button>
-        </form>
-        <div id="resultado"></div>
-        <canvas id="graficoDesempenho" width="400" height="200"></canvas>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Calculadora de Porcentagem de Faltas</h1>
+            <p>Calcule e visualize suas faltas de forma moderna</p>
+        </div>
+        <div class="main-card">
+            <div class="card-header">
+                <h2>Controle de Faltas</h2>
+                <p>Preencha os dados abaixo</p>
+            </div>
+            <div class="card-body">
+                <form id="faltaForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="turma">Nome da Turma:</label>
+                        <input type="text" id="turma" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="matricula">Matrícula:</label>
+                        <input type="text" id="matricula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admissao">Admissão:</label>
+                        <input type="date" id="admissao" required>
+                    </div>
+                    <div class="form-group periodo-group">
+                        <div>
+                            <label for="periodoInicio">Período de:</label>
+                            <input type="date" id="periodoInicio" required>
+                        </div>
+                        <div>
+                            <label for="periodoFim">Até:</label>
+                            <input type="date" id="periodoFim" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventos">Número de Eventos:</label>
+                        <input type="number" id="eventos" min="1" max="12" required onchange="gerarCamposEventos()">
+                    </div>
+                    <div id="eventosContainer"></div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-success" onclick="calcularFaltas()"><i class="fas fa-percent"></i>
+                            Calcular</button>
+                        <button type="button" class="btn btn-warning" onclick="gerarPDF()"><i class="fas fa-file-pdf"></i>
+                            Gerar PDF</button>
+                        <button type="button" class="btn btn-primary" onclick="addStudent()"><i class="fas fa-user-plus"></i>
+                            Adicionar Aluno</button>
+                        <button type="button" class="btn btn-secondary" onclick="exportAllData()"><i class="fas fa-file-excel"></i>
+                            Exportar para Excel</button>
+                        <button type="button" class="btn btn-danger" onclick="novaTurma()"><i class="fas fa-redo"></i> Nova
+                            Turma</button>
+                        <button type="button" class="btn btn-info"
+                            onclick="window.location.href='desempenho.html'">Análise Acadêmica Integral</button>
+                    </div>
+                </form>
+                <div id="resultado"></div>
+                <canvas id="graficoDesempenho" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Desenvolvido por Carlos Antonio de Oliveira Piquet</p>
+        </div>
+    </div>
     <script>
         let studentsData = []; // Array para armazenar os dados dos alunos
         let chart; // Variável global para armazenar o gráfico
@@ -355,19 +430,21 @@
 
             // Zera os campos de presença, falta e justificativa
             statusEventos.forEach(input => {
-                input.value = '';  // Limpa o status (P/F/J)
+                input.value = ''; // Limpa o status (P/F/J)
             });
 
             const obsInputs = document.querySelectorAll('.obsJustificativa');
             obsInputs.forEach(input => {
-                input.value = '';  // Limpa a observação justificativa
+                input.value = ''; // Limpa a observação justificativa
                 input.style.display = 'none'; // Oculta o campo de observação
             });
         }
 
         function exportAllData() {
             const ws = XLSX.utils.json_to_sheet(studentsData.map(student => {
-                let presencas = 0, faltas = 0, justificativas = 0;
+                let presencas = 0,
+                    faltas = 0,
+                    justificativas = 0;
 
                 student.eventos.forEach(event => {
                     const status = event.status.toUpperCase();
@@ -405,7 +482,9 @@
 
         function calcularFaltas() {
             const statusEventos = document.querySelectorAll('.statusEvento');
-            let presencas = 0, faltas = 0, justificativas = 0;
+            let presencas = 0,
+                faltas = 0,
+                justificativas = 0;
 
             statusEventos.forEach(input => {
                 const status = input.value.toUpperCase();
@@ -452,14 +531,14 @@
                         label: 'Desempenho do Aluno',
                         data: [percentPresencas, percentFaltas, percentJustificativas],
                         backgroundColor: [
-                            'rgba(0, 0, 255, 0.2)',  // Azul caneta
-                            'rgba(255, 0, 0, 0.2)',  // Vermelho
-                            'rgba(0, 128, 0, 0.2)'   // Verde
+                            'rgba(0, 0, 255, 0.2)', // Azul caneta
+                            'rgba(255, 0, 0, 0.2)', // Vermelho
+                            'rgba(0, 128, 0, 0.2)' // Verde
                         ],
                         borderColor: [
-                            'rgba(0, 0, 255, 1)',    // Azul caneta
-                            'rgba(255, 0, 0, 1)',    // Vermelho
-                            'rgba(0, 128, 0, 1)'     // Verde
+                            'rgba(0, 0, 255, 1)', // Azul caneta
+                            'rgba(255, 0, 0, 1)', // Vermelho
+                            'rgba(0, 128, 0, 1)' // Verde
                         ],
                         borderWidth: 1
                     }]
@@ -509,7 +588,9 @@
             const periodoInicio = formatarData(document.getElementById('periodoInicio').value);
             const periodoFim = formatarData(document.getElementById('periodoFim').value);
 
-            let presencas = 0, faltas = 0, justificativas = 0;
+            let presencas = 0,
+                faltas = 0,
+                justificativas = 0;
 
             const statusEventos = document.querySelectorAll('.statusEvento');
             const dataEventos = document.querySelectorAll('.dataEvento');
@@ -539,7 +620,7 @@
             // Adiciona o gráfico na parte superior direita, alinhado com o nome
             const canvas = document.getElementById('graficoDesempenho');
             const imgData = canvas.toDataURL('image/png');
-            const imgWidth = 60;  // Largura do gráfico
+            const imgWidth = 60; // Largura do gráfico
             const imgHeight = 30; // Altura do gráfico
             const imgX = larguraPagina - imgWidth - marginLeft; // Posição X para ficar à direita
             const imgY = yPos; // Posição Y para alinhar com o nome
@@ -649,15 +730,14 @@
 
             // Limpa apenas os campos de Status e Observação Justificativa
             statusEventos.forEach(input => {
-                input.value = '';  // Limpa o status (P/F/J)
+                input.value = ''; // Limpa o status (P/F/J)
             });
 
             obsJustificativas.forEach(input => {
-                input.value = '';  // Limpa a observação justificativa
+                input.value = ''; // Limpa a observação justificativa
                 input.style.display = 'none'; // Oculta o campo de observação
             });
         }
-
     </script>
 </body>
 
